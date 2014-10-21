@@ -17,7 +17,7 @@ import portaria.interfaces.DatabaseTable;
  *
  * @author lucas
  */
-public class Visitante implements DatabaseTable {
+public class Visitante {
     private int id;
     private String nome;
     private String rg;
@@ -52,6 +52,86 @@ public class Visitante implements DatabaseTable {
     }
 
     
+    public Visitante(int id, String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
+        this.id            = id;
+        this.nome          = nome;
+        this.rg            = rg;
+        this.cpf           = cpf;
+        this.telefone      = telefone;
+        this.email         = email;
+        this.endereco      = endereco;
+        this.numEndereco   = numEndereco;
+        this.complEndereco = complEndereco;
+        this.bairro        = bairro;
+        this.cidade        = cidade;
+        this.uf            = uf;
+        this.cep           = cep;
+        this.obs           = obs;
+        this.foto          = foto;
+    }
+    
+    /**
+     *
+     * @param nome
+     * @return Visitante
+     */  
+    public Visitante (String nome) throws SQLException{
+        Statement stmt = null;
+        ResultSet rs   = null;
+        
+        stmt = Consulta.conn.createStatement();
+        rs = null;
+
+        stmt.execute("SELECT * FROM visitante WHERE nome = " + nome);
+        rs                 = stmt.getResultSet();
+        this.id            = rs.getInt("id");
+        this.nome          = rs.getString("nome");
+        this.rg            = rs.getString("rg");
+        this.cpf           = rs.getString("cpf");
+        this.telefone      = rs.getString("telefone");
+        this.email         = rs.getString("email");
+        this.endereco      = rs.getString("endereco");
+        this.numEndereco   = rs.getString("num_endereco");
+        this.complEndereco = rs.getString("compl_endereco");
+        this.bairro        = rs.getString("bairro");
+        this.cidade        = rs.getString("cidade");
+        this.uf            = rs.getString("uf");
+        this.cep           = rs.getString("cep");
+        this.foto          = rs.getString("foto");
+        stmt.close();
+    }
+    
+    
+    /**
+     *
+     * @param id
+     * @return Visitante
+     */  
+    public Visitante (int id) throws SQLException{
+        Statement stmt = null;
+        ResultSet rs   = null;
+        
+        stmt = Consulta.conn.createStatement();
+        rs = null;
+
+        stmt.execute("SELECT * FROM visitante WHERE id = " + id);
+        rs                 = stmt.getResultSet();
+        this.id            = rs.getInt("id");
+        this.nome          = rs.getString("nome");
+        this.rg            = rs.getString("rg");
+        this.cpf           = rs.getString("cpf");
+        this.telefone      = rs.getString("telefone");
+        this.email         = rs.getString("email");
+        this.endereco      = rs.getString("endereco");
+        this.numEndereco   = rs.getString("num_endereco");
+        this.complEndereco = rs.getString("compl_endereco");
+        this.bairro        = rs.getString("bairro");
+        this.cidade        = rs.getString("cidade");
+        this.uf            = rs.getString("uf");
+        this.cep           = rs.getString("cep");
+        this.foto          = rs.getString("foto");
+        stmt.close();
+    }
     
     /**
      * @return the id
@@ -289,47 +369,17 @@ public class Visitante implements DatabaseTable {
         return this;
     }
     
-    /**
-     *
-     * @param nome
-     * @return Visitante
-     */  
-    public Visitante search (String nome) throws SQLException{
-        Statement stmt = null;
-        ResultSet rs   = null;
-        
-        stmt = Consulta.conn.createStatement();
-        rs = null;
-
-        stmt.execute("SELECT * FROM visitante WHERE nome = " + nome);
-        rs                 = stmt.getResultSet();
-        this.id            = rs.getInt("id");
-        this.nome          = rs.getString("nome");
-        this.rg            = rs.getString("rg");
-        this.cpf           = rs.getString("cpf");
-        this.telefone      = rs.getString("telefone");
-        this.email         = rs.getString("email");
-        this.endereco      = rs.getString("endereco");
-        this.numEndereco   = rs.getString("num_endereco");
-        this.complEndereco = rs.getString("compl_endereco");
-        this.bairro        = rs.getString("bairro");
-        this.cidade        = rs.getString("cidade");
-        this.uf            = rs.getString("uf");
-        this.cep           = rs.getString("cep");
-        this.foto          = rs.getString("foto");
-        stmt.close();
-        return this;
-    }
     
     /**
      *
      * @param nome
      * @return List<Visitante>
      */
-    public List<Visitante> getVisitanteByNome (String nome) throws SQLException {
+    public static List<Visitante> getVisitantesByNome (String nome) throws SQLException {
         Statement stmt             = null;
         ResultSet rs               = null;
         List<Visitante> visitantes = new ArrayList();
+        Visitante visitante        = null;
        
         stmt = Consulta.conn.createStatement();
         rs = null;
@@ -337,21 +387,8 @@ public class Visitante implements DatabaseTable {
         stmt.execute("SELECT * FROM visitante WHERE nome LIKE " + nome);
         rs = stmt.getResultSet();
         while (rs.next()) {
-            this.id = rs.getInt("id");
-            this.nome = rs.getString("nome");
-            this.rg = rs.getString("rg");
-            this.cpf = rs.getString("cpf");
-            this.telefone = rs.getString("telefone");
-            this.email = rs.getString("email");
-            this.endereco = rs.getString("endereco");
-            this.numEndereco = rs.getString("num_endereco");
-            this.complEndereco = rs.getString("compl_endereco");
-            this.bairro = rs.getString("bairro");
-            this.cidade = rs.getString("cidade");
-            this.uf = rs.getString("uf");
-            this.cep = rs.getString("cep");
-            this.foto = rs.getString("foto");
-            visitantes.add(this);
+            visitante = new Visitante (rs.getInt("id"), rs.getString("nome"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"), rs.getString("endereco"), rs.getString("num_endereco"), rs.getString("compl_endereco"), rs.getString("bairro"), rs.getString("cidade"), rs.getString("uf"), rs.getString("cep"), rs.getString("foto"));
+            visitantes.add(visitante);
         }
         stmt.close();
         return visitantes;
@@ -363,13 +400,12 @@ public class Visitante implements DatabaseTable {
      * @param
      * @return boolean
      */
-    @Override
     public void insert () throws SQLException{
         Statement stmt = null;
         String sql     = null;
         
         stmt = Consulta.conn.createStatement();
-        sql = "INSERT INTO visitante (";
+        sql  = "INSERT INTO visitante (";
         sql += "nome, ";
         sql += "rg, ";
         sql += "cpf, ";
@@ -399,19 +435,31 @@ public class Visitante implements DatabaseTable {
         sql += this.foto;
         sql += ")";
         stmt.executeQuery(sql);
+        stmt.close();
     }
 
-    @Override
-    public void delete() throws SQLException {
-        try {
-            Statement stmt = Consulta.conn.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(Visitante.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @Override
-    public void update() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void update() throws SQLException, CloneNotSupportedException {
+        Statement stmt           = Consulta.conn.createStatement();
+        String sql               = null;
+        
+        sql  = "UPDATE visitante ";
+        sql += "    SET ";
+        sql += "nome = " + this.nome + ", ";
+        sql += "rg = " + this.rg + ", ";
+        sql += "cpf = " + this.cpf + ", ";
+        sql += "telefone = " + this.telefone + ", ";
+        sql += "email = " + this.email + ", ";
+        sql += "endereco = " + this.endereco + ", ";
+        sql += "num_endereco = " + this.numEndereco + ", ";
+        sql += "comp_endereco = " + this.complEndereco + ", ";
+        sql += "bairro = " + this.bairro + ", ";
+        sql += "cidade = " + this.cidade + ", ";
+        sql += "uf = " + this.uf + ", ";
+        sql += "cep = " + this.cep + ", ";
+        sql += "foto = " + this.foto;
+        sql += "WHERE id = " + this.id;
+        
+        stmt.executeQuery(sql);
+        stmt.close();
     }
 }
