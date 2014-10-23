@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import portaria.frames.Consulta;
-import portaria.interfaces.DatabaseTable;
+
 
 /**
  *
@@ -33,8 +33,9 @@ public class Visitante {
     private String cep;
     private String obs;
     private String foto;
-
-    public Visitante(String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
+                    
+    public Visitante(int id, String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
+        this.id            = id;
         this.nome          = nome;
         this.rg            = rg;
         this.cpf           = cpf;
@@ -50,10 +51,8 @@ public class Visitante {
         this.obs           = obs;
         this.foto          = foto;
     }
-
     
-    public Visitante(int id, String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
-        this.id            = id;
+    public Visitante(String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
         this.nome          = nome;
         this.rg            = rg;
         this.cpf           = cpf;
@@ -387,7 +386,7 @@ public class Visitante {
         stmt.execute("SELECT * FROM visitante WHERE nome LIKE " + nome);
         rs = stmt.getResultSet();
         while (rs.next()) {
-            visitante = new Visitante (rs.getInt("id"), rs.getString("nome"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"), rs.getString("endereco"), rs.getString("num_endereco"), rs.getString("compl_endereco"), rs.getString("bairro"), rs.getString("cidade"), rs.getString("uf"), rs.getString("cep"), rs.getString("foto"));
+            visitante = new Visitante (rs.getInt ("id"), rs.getString("nome"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"), rs.getString("endereco"), rs.getString("num_endereco"), rs.getString("compl_endereco"), rs.getString("bairro"), rs.getString("cidade"), rs.getString("uf"), rs.getString("cep"), rs.getString("obs"), rs.getString("foto"));
             visitantes.add(visitante);
         }
         stmt.close();
