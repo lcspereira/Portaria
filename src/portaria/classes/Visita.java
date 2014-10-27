@@ -87,13 +87,24 @@ public class Visita {
         Statement stmt       = Consulta.conn.createStatement();
         ResultSet rs         = null;
         List<Visita> visitas = new ArrayList<Visita>();
-        Visita visita        = null;
         
         stmt.executeQuery("SELECT * FROM visita WHERE id_visitante = " + idVisitante);
         rs = stmt.getResultSet();
         while (rs.next()) {
-            visita = new Visita (rs.getInt("id"), rs.getInt("id_visitante"), new Date(rs.getInt("data_hora") * 1000L), rs.getString("obs"));
-            visitas.add(visita);
+            visitas.add(new Visita (rs.getInt("id"), rs.getInt("id_visitante"), new Date(rs.getInt("data_hora") * 1000L), rs.getString("obs")));
+        }
+        return visitas;
+    }
+    
+    public List<Visita> getVisitasByData (Date dataVisitaLower, Date dataVisitaUpper) throws SQLException {
+        Statement stmt       = Consulta.conn.createStatement();
+        ResultSet rs         = null;
+        List<Visita> visitas = new ArrayList<Visita>();
+        
+        stmt.executeQuery("SELECT * FROM visita WHERE data_hora BETWEEN " + dataVisitaLower.getTime() + " AND " + dataVisitaUpper.getTime());
+        rs = stmt.getResultSet();
+        while (rs.next()) {
+            visitas.add(new Visita (rs.getInt("id"), rs.getInt("id_visitante"), new Date(rs.getInt("data_hora") * 1000L), rs.getString("obs")));
         }
         return visitas;
     }
