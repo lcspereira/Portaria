@@ -418,22 +418,22 @@ public class Visitante {
         sql += "uf, ";
         sql += "cep, ";
         sql += "foto";
-        sql += ") VALUES (";
-        sql += this.nome + ", ";
-        sql += this.rg + ", ";
-        sql += this.cpf + ", ";
-        sql += this.telefone + ", ";
-        sql += this.email + ", ";
-        sql += this.endereco + ", ";
-        sql += this.numEndereco + ", ";
-        sql += this.complEndereco + ", ";
-        sql += this.bairro + ", ";
-        sql += this.cidade + ", ";
-        sql += this.uf + ", ";
-        sql += this.cep + ", ";
+        sql += ") VALUES ('";
+        sql += this.nome + "', '";
+        sql += this.rg + "', '";
+        sql += this.cpf + "', '";
+        sql += this.telefone + "', '";
+        sql += this.email + "', '";
+        sql += this.endereco + "', '";
+        sql += this.numEndereco + "', '";
+        sql += this.complEndereco + "', '";
+        sql += this.bairro + "', '";
+        sql += this.cidade + "', '";
+        sql += this.uf + "', '";
+        sql += this.cep + "', '";
         sql += this.foto;
-        sql += ")";
-        stmt.executeQuery(sql);
+        sql += "')";
+        stmt.execute(sql)
         stmt.close();
     }
 

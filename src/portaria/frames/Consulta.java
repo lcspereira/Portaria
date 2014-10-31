@@ -10,6 +10,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 /**
  *
@@ -132,16 +133,17 @@ public class Consulta extends javax.swing.JFrame {
         jButton2.setText("Registrar visita");
 
         fotoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        fotoPanel.setPreferredSize(new java.awt.Dimension(640, 480));
 
         javax.swing.GroupLayout fotoPanelLayout = new javax.swing.GroupLayout(fotoPanel);
         fotoPanel.setLayout(fotoPanelLayout);
         fotoPanelLayout.setHorizontalGroup(
             fotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
         fotoPanelLayout.setVerticalGroup(
             fotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGap(0, 476, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout dadosVisitantePanelLayout = new javax.swing.GroupLayout(dadosVisitantePanel);
@@ -173,7 +175,7 @@ public class Consulta extends javax.swing.JFrame {
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(fotoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dadosVisitantePanelLayout.createSequentialGroup()
@@ -221,7 +223,7 @@ public class Consulta extends javax.swing.JFrame {
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton2))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(28, 28, 28))
         );
 
@@ -323,6 +325,7 @@ public class Consulta extends javax.swing.JFrame {
             }
             visitantesList.setListData(visitantes);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao consultar o banco de dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -381,6 +384,7 @@ public class Consulta extends javax.swing.JFrame {
                 }
             });
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco de dados: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
