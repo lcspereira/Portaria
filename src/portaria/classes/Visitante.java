@@ -433,7 +433,7 @@ public class Visitante {
         sql += this.cep + "', '";
         sql += this.foto;
         sql += "')";
-        stmt.execute(sql)
+        stmt.execute(sql);
         stmt.close();
     }
 
