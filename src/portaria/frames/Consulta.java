@@ -43,13 +43,13 @@ public class Consulta extends javax.swing.JFrame {
         dadosNomeLabel = new javax.swing.JLabel();
         rgLabel = new javax.swing.JLabel();
         cpfLabel = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        telefoneLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        enderecoLabel = new javax.swing.JLabel();
+        numEndLabel = new javax.swing.JLabel();
+        complEndLabel = new javax.swing.JLabel();
+        bairroLabel = new javax.swing.JLabel();
+        cidadeLabel = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -98,19 +98,19 @@ public class Consulta extends javax.swing.JFrame {
 
         cpfLabel.setText("CPF:");
 
-        jLabel2.setText("Telefone:");
+        telefoneLabel.setText("Telefone:");
 
-        jLabel3.setText("E-mail:");
+        emailLabel.setText("E-mail:");
 
-        jLabel4.setText("Endereço:");
+        enderecoLabel.setText("Endereço:");
 
-        jLabel5.setText("Nº:");
+        numEndLabel.setText("Nº:");
 
-        jLabel6.setText("Compl.:");
+        complEndLabel.setText("Compl.:");
 
-        jLabel7.setText("Bairro:");
+        bairroLabel.setText("Bairro:");
 
-        jLabel8.setText("Cidade:");
+        cidadeLabel.setText("Cidade:");
 
         jLabel9.setText("UF:");
 
@@ -154,7 +154,7 @@ public class Consulta extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rgLabel)
-                    .addComponent(jLabel4)
+                    .addComponent(enderecoLabel)
                     .addComponent(dadosNomeLabel)
                     .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -162,19 +162,19 @@ public class Consulta extends javax.swing.JFrame {
                             .addComponent(jLabel11)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel10)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel7)
                     .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel5))
+                            .addComponent(telefoneLabel)
+                            .addComponent(cidadeLabel)
+                            .addComponent(numEndLabel)
+                            .addComponent(bairroLabel))
                         .addGap(114, 114, 114)
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
+                            .addComponent(jLabel9)
+                            .addComponent(complEndLabel)
                             .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(cpfLabel)
-                                .addComponent(jLabel3)))))
+                                .addComponent(emailLabel)))))
                 .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -199,20 +199,20 @@ public class Consulta extends javax.swing.JFrame {
                             .addComponent(cpfLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(telefoneLabel)
+                            .addComponent(emailLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
+                        .addComponent(enderecoLabel)
                         .addGap(23, 23, 23)
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(numEndLabel)
+                            .addComponent(complEndLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
+                        .addComponent(cidadeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
+                        .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(bairroLabel)
+                            .addComponent(jLabel9))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -402,13 +402,18 @@ public class Consulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bairroLabel;
     private javax.swing.JButton buscarButton;
     private javax.swing.JMenuItem cadVisitanteMenuItem;
+    private javax.swing.JLabel cidadeLabel;
+    private javax.swing.JLabel complEndLabel;
     private javax.swing.JLabel cpfLabel;
     private javax.swing.JLabel dadosNomeLabel;
     private javax.swing.JPanel dadosVisitantePanel;
     private javax.swing.JTextField dataBuscarAField;
     private javax.swing.JTextField dataBuscarDeField;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel enderecoLabel;
     private javax.swing.JPanel fotoPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -416,13 +421,6 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -431,7 +429,9 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JMenu menuPrincipal;
     private javax.swing.JLabel nomeBuscaLabel;
     private javax.swing.JTextField nomeBuscarField;
+    private javax.swing.JLabel numEndLabel;
     private javax.swing.JLabel rgLabel;
+    private javax.swing.JLabel telefoneLabel;
     private javax.swing.JList visitantesList;
     // End of variables declaration//GEN-END:variables
 
