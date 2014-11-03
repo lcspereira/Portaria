@@ -1,8 +1,24 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 lucas
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ *
+ * @author lucas
+ */
+
 package portaria.frames;
 import com.sun.image.codec.jpeg.ImageFormatException;
 import com.sun.image.codec.jpeg.JPEGCodec;
@@ -33,6 +49,8 @@ import javax.media.format.*;
 import javax.media.util.*;
 import javax.media.control.*;
 import javax.media.protocol.*;
+import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import portaria.classes.Visitante;
 
@@ -45,7 +63,8 @@ public class CadastroVisitante extends javax.swing.JFrame {
     /**
      * Creates new form CadastroPessoa
      */
-    public CadastroVisitante() {
+    public CadastroVisitante(Consulta mainWindow) {
+        this.mainWindow = mainWindow;
         initComponents();
     }
 
@@ -92,6 +111,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
         emailLabel = new javax.swing.JLabel();
         emailField = new javax.swing.JTextField();
 
+        setTitle("Cadastro de visitante");
         setResizable(false);
         setType(java.awt.Window.Type.UTILITY);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -162,11 +182,11 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(enderecoField)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cidadeField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(numeroEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cidadeField)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(numeroEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(complEndLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(complEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,7 +195,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bairroField, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))
+                                .addComponent(bairroField))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ufLabel)
@@ -310,7 +330,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                         .addComponent(camButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(captureButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(44, 44, 44))
+                .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,6 +387,9 @@ public class CadastroVisitante extends javax.swing.JFrame {
             visitante = new Visitante (nomeField.getText(), rgField.getText(), cpfField.getText(), telefoneField.getText(), emailField.getText(), enderecoField.getText(), numeroEndField.getText(), complEndField.getText(), bairroField.getText(), cidadeField.getText(), ufField.getText(), cepField.getText(), obsField.getText(), dataHoraFoto + ".jpg");
             visitante.insert();
             JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " cadastrador com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            player.close();
+            this.mainWindow.updateVisitantesList();
+            this.setVisible(false);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar visitante:" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
@@ -438,11 +461,15 @@ public class CadastroVisitante extends javax.swing.JFrame {
     }//GEN-LAST:event_captureButtonActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-       
+
     }//GEN-LAST:event_formWindowClosed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        player.close();
+        try {
+            player.close();
+            this.mainWindow.updateVisitantesList();
+        } catch (NullPointerException nullPointerException) {
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
@@ -484,7 +511,6 @@ public class CadastroVisitante extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroVisitante().setVisible(true);
             }
         });
     }
@@ -531,4 +557,5 @@ public class CadastroVisitante extends javax.swing.JFrame {
     public Component comp;
     public String nomeArqFoto;
     public String dataHoraFoto;
+    public Consulta mainWindow;
 }

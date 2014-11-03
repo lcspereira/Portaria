@@ -1,6 +1,6 @@
 ﻿-- Arquivo de inicialização do banco de dados.
 -- IMPORTANTE: Este arquivo deve ser executado com psql.
-CREATE ROLE portaria NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN;
+CREATE ROLE portaria NOSUPERUSER NOCREATEDB NOCREATEROLE LOGIN PASSWORD 'p0r74r14';
 
 CREATE DATABASE portaria WITH OWNER portaria ENCODING 'UTF8';
 \c portaria
@@ -44,5 +44,7 @@ CREATE INDEX idx_visitante ON visitante (
 
 GRANT ALL ON TABLE visitante TO portaria;
 GRANT ALL ON TABLE visita TO portaria;
+GRANT ALL ON SEQUENCE visitante_id_seq TO portaria;
+GRANT ALL ON SEQUENCE visita_id_seq TO portaria;
 GRANT CONNECT ON DATABASE portaria TO portaria;
 ANALYZE;

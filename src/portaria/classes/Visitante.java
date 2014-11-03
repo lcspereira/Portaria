@@ -1,12 +1,28 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 lucas
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package portaria.classes;
 
-import java.sql.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,10 +95,11 @@ public class Visitante {
         ResultSet rs   = null;
         
         stmt = Consulta.conn.createStatement();
-        rs = null;
+        rs   = null;
 
-        stmt.execute("SELECT * FROM visitante WHERE nome = " + nome);
+        stmt.execute("SELECT * FROM visitante WHERE nome = '" + nome + "'");
         rs                 = stmt.getResultSet();
+        rs.next();
         this.id            = rs.getInt("id");
         this.nome          = rs.getString("nome");
         this.rg            = rs.getString("rg");
@@ -334,56 +351,35 @@ public class Visitante {
     public void setFoto(String foto) {
         this.foto = foto;
     }
-    
-    
-      /**
-     *
-     * @param id
-     * @return Visitante
-     */
-    public Visitante search (int id) throws SQLException {
-        Statement stmt = null;
-        ResultSet rs   = null;
-       
-        stmt = Consulta.conn.createStatement();
-        rs   = null;
-
-        stmt.execute("SELECT * FROM visitante WHERE id = " + id);
-        rs                 = stmt.getResultSet();
-        this.id            = rs.getInt("id");
-        this.nome          = rs.getString("nome");
-        this.rg            = rs.getString("rg");
-        this.cpf           = rs.getString("cpf");
-        this.telefone      = rs.getString("telefone");
-        this.email         = rs.getString("email");
-        this.endereco      = rs.getString("endereco");
-        this.numEndereco   = rs.getString("num_endereco");
-        this.complEndereco = rs.getString("compl_endereco");
-        this.bairro        = rs.getString("bairro");
-        this.cidade        = rs.getString("cidade");
-        this.uf            = rs.getString("uf");
-        this.cep           = rs.getString("cep");
-        this.foto          = rs.getString("foto");
-        stmt.close();
-        return this;
-    }
-    
+  
     
     /**
      *
      * @param nome
      * @return List<Visitante>
      */
-    public static List<Visitante> getVisitantesByNome (String nome) throws SQLException {
+    public static List<Visitante> getVisitantes (String nome, Date dataLower, Date dataUpper) throws SQLException {
         Statement stmt             = null;
         ResultSet rs               = null;
         List<Visitante> visitantes = new ArrayList();
         Visitante visitante        = null;
+        String sql                 = "SELECT * FROM visitante" ;
        
         stmt = Consulta.conn.createStatement();
-        rs = null;
-
-        stmt.execute("SELECT * FROM visitante WHERE nome LIKE " + nome);
+        rs   = null;
+        
+        if (! nome.isEmpty()) {
+            sql += " WHERE nome LIKE " + nome;
+        }
+        if (dataLower != null) {
+            sql += " AND data_hora > '" + dataLower.toString() + "'";
+            if (dataUpper == null) {
+                dataUpper = Calendar.getInstance().getTime();
+                sql += " AND data_hora < '" + dataUpper.toString() + "'";
+            }
+        }
+        
+        stmt.execute(sql);
         rs = stmt.getResultSet();
         while (rs.next()) {
             visitante = new Visitante (rs.getInt ("id"), rs.getString("nome"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"), rs.getString("endereco"), rs.getString("num_endereco"), rs.getString("compl_endereco"), rs.getString("bairro"), rs.getString("cidade"), rs.getString("uf"), rs.getString("cep"), rs.getString("obs"), rs.getString("foto"));
@@ -393,11 +389,8 @@ public class Visitante {
         return visitantes;
     }
     
-    
     /**
      *
-     * @param
-     * @return boolean
      */
     public void insert () throws SQLException{
         Statement stmt = null;
@@ -437,7 +430,7 @@ public class Visitante {
         stmt.close();
     }
 
-    public void update() throws SQLException, CloneNotSupportedException {
+    public void update() throws SQLException {
         Statement stmt           = Consulta.conn.createStatement();
         String sql               = null;
         

@@ -1,9 +1,35 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Copyright (C) 2014 lucas
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ *
+ * @author lucas
+ */
+
 package portaria.frames;
+
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import portaria.classes.Visita;
+import portaria.classes.Visitante;
 
 /**
  *
@@ -14,8 +40,13 @@ public class RegistroVisita extends javax.swing.JFrame {
     /**
      * Creates new form RegistroVisita
      */
-    public RegistroVisita() {
+    public RegistroVisita(Consulta mainWindow, Visitante v) {
         initComponents();
+        this.mainWindow = mainWindow;
+        this.dataHora = Calendar.getInstance().getTime();
+        this.dataHoraShowLabel.setText(this.dataHora.toString());
+        nomeVisitanteLabel.setText(v.getNome());
+        this.visita = new Visita (v.getId(), this.dataHora, null);
     }
 
     /**
@@ -27,21 +58,111 @@ public class RegistroVisita extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        visitanteLabel = new javax.swing.JLabel();
+        nomeVisitanteLabel = new javax.swing.JLabel();
+        dataHoraLabel = new javax.swing.JLabel();
+        dataHoraShowLabel = new javax.swing.JLabel();
+        obsLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        obsField = new javax.swing.JTextArea();
+        registrarVisitaButton = new javax.swing.JButton();
+        limparButton = new javax.swing.JButton();
+
+        setTitle("Registrar visita");
+        setType(java.awt.Window.Type.UTILITY);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
+
+        visitanteLabel.setText("Visitante:");
+
+        nomeVisitanteLabel.setText("-");
+
+        dataHoraLabel.setText("Data / Hora:");
+
+        dataHoraShowLabel.setText("-");
+
+        obsLabel.setText("Observação:");
+
+        obsField.setColumns(20);
+        obsField.setRows(5);
+        jScrollPane1.setViewportView(obsField);
+
+        registrarVisitaButton.setText("Registrar visita");
+        registrarVisitaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarVisitaButtonActionPerformed(evt);
+            }
+        });
+
+        limparButton.setText("Limpar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 897, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(obsLabel)
+                    .addComponent(dataHoraLabel)
+                    .addComponent(visitanteLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nomeVisitanteLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                    .addComponent(dataHoraShowLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(registrarVisitaButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(limparButton)
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(visitanteLabel)
+                    .addComponent(nomeVisitanteLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dataHoraLabel)
+                    .addComponent(dataHoraShowLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(obsLabel)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(registrarVisitaButton)
+                    .addComponent(limparButton))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void registrarVisitaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarVisitaButtonActionPerformed
+        try {
+            visita.setObs(obsField.getText());
+            visita.insert();
+            JOptionPane.showMessageDialog(null, "Visita registrada com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            this.mainWindow.updateVisitantesList();
+            this.setVisible(false);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao registrar visita: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(RegistroVisita.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_registrarVisitaButtonActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        this.mainWindow.updateVisitantesList();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -73,11 +194,22 @@ public class RegistroVisita extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistroVisita().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel dataHoraLabel;
+    private javax.swing.JLabel dataHoraShowLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton limparButton;
+    private javax.swing.JLabel nomeVisitanteLabel;
+    private javax.swing.JTextArea obsField;
+    private javax.swing.JLabel obsLabel;
+    private javax.swing.JButton registrarVisitaButton;
+    private javax.swing.JLabel visitanteLabel;
     // End of variables declaration//GEN-END:variables
+    public Visita visita;
+    public Date dataHora;
+    public Consulta mainWindow;
 }
