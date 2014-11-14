@@ -82,7 +82,6 @@ public class Consulta extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         visitasTable = new javax.swing.JTable();
-        regVisitaButton = new javax.swing.JButton();
         fotoPanel = new javax.swing.JPanel();
         fotoLabel = new javax.swing.JLabel();
         dataRgLabel = new javax.swing.JLabel();
@@ -96,7 +95,6 @@ public class Consulta extends javax.swing.JFrame {
         dataBairroLabel = new javax.swing.JLabel();
         dataUfLabel = new javax.swing.JLabel();
         dataObsLabel = new javax.swing.JLabel();
-        editarButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         dataBuscarDeField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -104,6 +102,8 @@ public class Consulta extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPrincipal = new javax.swing.JMenu();
         cadVisitanteMenuItem = new javax.swing.JMenuItem();
+        regVisitaMenuItem = new javax.swing.JMenuItem();
+        editarVisitanteMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Portaria");
@@ -173,13 +173,6 @@ public class Consulta extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(visitasTable);
 
-        regVisitaButton.setText("Registrar visita");
-        regVisitaButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regVisitaButtonActionPerformed(evt);
-            }
-        });
-
         fotoPanel.setPreferredSize(new java.awt.Dimension(640, 480));
 
         fotoLabel.setText("imagem");
@@ -223,74 +216,65 @@ public class Consulta extends javax.swing.JFrame {
 
         dataObsLabel.setText("-");
 
-        editarButton.setText("Editar");
-
         javax.swing.GroupLayout dadosVisitantePanelLayout = new javax.swing.GroupLayout(dadosVisitantePanel);
         dadosVisitantePanel.setLayout(dadosVisitantePanelLayout);
         dadosVisitantePanelLayout.setHorizontalGroup(
             dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dadosVisitantePanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dadosVisitantePanelLayout.createSequentialGroup()
-                        .addComponent(editarButton)
+                .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(regVisitaButton)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dadosVisitantePanelLayout.createSequentialGroup()
-                        .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataObsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(telefoneLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataTelefoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(bairroLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataBairroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataUfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(cidadeLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataCidadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(numEndLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataNumEnderecoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(complEndLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataComplEndLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(emailLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataEmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(dataNomeLabel)
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(enderecoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataEnderecoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                                .addComponent(rgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataRgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(cpfLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(dataCpfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(dataObsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(telefoneLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataTelefoneLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(bairroLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataBairroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataUfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(cidadeLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataCidadeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(numEndLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataNumEnderecoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(fotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(complEndLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataComplEndLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(emailLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataEmailLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dataNomeLabel)
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(enderecoLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataEnderecoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
+                        .addComponent(rgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataRgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(cpfLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dataCpfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(fotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 10, Short.MAX_VALUE))
         );
         dadosVisitantePanelLayout.setVerticalGroup(
@@ -345,10 +329,7 @@ public class Consulta extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
                         .addComponent(fotoPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(editarButton)
-                            .addComponent(regVisitaButton))))
+                        .addGap(34, 34, 34)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -370,6 +351,22 @@ public class Consulta extends javax.swing.JFrame {
             }
         });
         menuPrincipal.add(cadVisitanteMenuItem);
+
+        regVisitaMenuItem.setText("Registrar visita");
+        regVisitaMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regVisitaMenuItemActionPerformed(evt);
+            }
+        });
+        menuPrincipal.add(regVisitaMenuItem);
+
+        editarVisitanteMenuItem.setText("Editar visitnte");
+        editarVisitanteMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarVisitanteMenuItemActionPerformed(evt);
+            }
+        });
+        menuPrincipal.add(editarVisitanteMenuItem);
 
         jMenuBar1.add(menuPrincipal);
 
@@ -500,9 +497,17 @@ public class Consulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_visitantesListValueChanged
 
-    private void regVisitaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regVisitaButtonActionPerformed
-        new RegistroVisita(this, visitante).setVisible(true);
-    }//GEN-LAST:event_regVisitaButtonActionPerformed
+    private void regVisitaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regVisitaMenuItemActionPerformed
+        try {
+            new RegistroVisita(this, visitante).setVisible(true);
+        } catch (NullPointerException npe) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um visitante na lista.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_regVisitaMenuItemActionPerformed
+
+    private void editarVisitanteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarVisitanteMenuItemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editarVisitanteMenuItemActionPerformed
 
     public void updateVisitantesList () {
         Statement stmt = null;
@@ -606,7 +611,7 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JLabel dataRgLabel;
     private javax.swing.JLabel dataTelefoneLabel;
     private javax.swing.JLabel dataUfLabel;
-    private javax.swing.JButton editarButton;
+    private javax.swing.JMenuItem editarVisitanteMenuItem;
     private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel enderecoLabel;
     private javax.swing.JLabel fotoLabel;
@@ -623,7 +628,7 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JLabel nomeBuscaLabel;
     private javax.swing.JTextField nomeBuscarField;
     private javax.swing.JLabel numEndLabel;
-    private javax.swing.JButton regVisitaButton;
+    private javax.swing.JMenuItem regVisitaMenuItem;
     private javax.swing.JLabel rgLabel;
     private javax.swing.JLabel telefoneLabel;
     private javax.swing.JList visitantesList;

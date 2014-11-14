@@ -392,48 +392,55 @@ public class Visitante {
     /**
      *
      */
-    public void insert () throws SQLException{
+    public void insert () throws SQLException, Exception{
         Statement stmt = null;
         String sql     = null;
         
-        stmt = Consulta.conn.createStatement();
-        sql  = "INSERT INTO visitante (";
-        sql += "nome, ";
-        sql += "rg, ";
-        sql += "cpf, ";
-        sql += "telefone, ";
-        sql += "email, ";
-        sql += "endereco, ";
-        sql += "num_endereco, ";
-        sql += "compl_endereco, ";
-        sql += "bairro, ";
-        sql += "cidade, ";
-        sql += "uf, ";
-        sql += "cep, ";
-        sql += "foto";
-        sql += ") VALUES ('";
-        sql += this.nome + "', '";
-        sql += this.rg + "', '";
-        sql += this.cpf + "', '";
-        sql += this.telefone + "', '";
-        sql += this.email + "', '";
-        sql += this.endereco + "', '";
-        sql += this.numEndereco + "', '";
-        sql += this.complEndereco + "', '";
-        sql += this.bairro + "', '";
-        sql += this.cidade + "', '";
-        sql += this.uf + "', '";
-        sql += this.cep + "', '";
-        sql += this.foto;
-        sql += "')";
-        stmt.execute(sql);
-        stmt.close();
+        if (this.nome.equals("")) {
+            throw new Exception("Por favor, informe o nome do visitante");
+        } else if (this.rg.equals("") && this.cpf.equals("")) {
+            throw new Exception ("RG ou CPF deve ser informado");
+        } else if (this.foto.equals("") || this.foto.equals("null.jpg")) {
+            throw new Exception ("Por favor, tire a foto do visitante");
+        } else {
+            stmt = Consulta.conn.createStatement();
+            sql  = "INSERT INTO visitante (";
+            sql += "nome, ";
+            sql += "rg, ";
+            sql += "cpf, ";
+            sql += "telefone, ";
+            sql += "email, ";
+            sql += "endereco, ";
+            sql += "num_endereco, ";
+            sql += "compl_endereco, ";
+            sql += "bairro, ";
+            sql += "cidade, ";
+            sql += "uf, ";
+            sql += "cep, ";
+            sql += "foto";
+            sql += ") VALUES ('";
+            sql += this.nome + "', '";
+            sql += this.rg + "', '";
+            sql += this.cpf + "', '";
+            sql += this.telefone + "', '";
+            sql += this.email + "', '";
+            sql += this.endereco + "', '";
+            sql += this.numEndereco + "', '";
+            sql += this.complEndereco + "', '";
+            sql += this.bairro + "', '";
+            sql += this.cidade + "', '";
+            sql += this.uf + "', '";
+            sql += this.cep + "', '";
+            sql += this.foto;
+            sql += "')";
+            stmt.execute(sql);
+            stmt.close();
+        }
     }
 
     public void update() throws SQLException {
         Statement stmt           = Consulta.conn.createStatement();
         String sql               = null;
-        
         sql  = "UPDATE visitante ";
         sql += "    SET ";
         sql += "nome = " + this.nome + ", ";

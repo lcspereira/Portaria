@@ -185,12 +185,12 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="cidadeField" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="numeroEndField" min="-2" pref="37" max="-2" attributes="0"/>
+                                  <Component id="numeroEndField" min="-2" pref="53" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="complEndLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="complEndField" min="-2" pref="64" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                  <Component id="complEndField" min="-2" pref="58" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="bairroLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>

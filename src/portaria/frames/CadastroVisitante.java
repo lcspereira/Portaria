@@ -66,6 +66,30 @@ public class CadastroVisitante extends javax.swing.JFrame {
     public CadastroVisitante(Consulta mainWindow) {
         this.mainWindow = mainWindow;
         initComponents();
+        this.visitante = null;
+    }
+    
+    /**
+     * Creates new form CadastroPessoa
+     */
+    public CadastroVisitante(Consulta mainWindow, Visitante v) {
+        this.mainWindow = mainWindow;
+        initComponents();
+        this.visitante = v;
+        this.nomeField.setText(v.getNome());
+        this.rgField.setText(v.getRg());
+        this.cpfField.setText(v.getCpf());
+        this.telefoneField.setText(v.getTelefone());
+        this.emailField.setText(v.getEmail());
+        this.enderecoField.setText(v.getEndereco());
+        this.numeroEndField.setText(v.getNumEndereco());
+        this.complEndField.setText(v.getComplEndereco());
+        this.bairroField.setText(v.getBairro());
+        this.cidadeField.setText(v.getCidade());
+        this.ufField.setText(v.getUf());
+        this.cepField.setText(v.getCep());
+        this.obsField.setText(v.getObs());
+        this.dataHoraFoto = v.getFoto();
     }
 
     /**
@@ -185,12 +209,12 @@ public class CadastroVisitante extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cidadeField)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(numeroEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(numeroEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(complEndLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(complEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addGap(2, 2, 2)
+                                .addComponent(complEndField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(bairroLabel)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -382,15 +406,23 @@ public class CadastroVisitante extends javax.swing.JFrame {
     }//GEN-LAST:event_numeroEndFieldActionPerformed
 
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
-        Visitante visitante = null;
         try {
-            visitante = new Visitante (nomeField.getText(), rgField.getText(), cpfField.getText(), telefoneField.getText(), emailField.getText(), enderecoField.getText(), numeroEndField.getText(), complEndField.getText(), bairroField.getText(), cidadeField.getText(), ufField.getText(), cepField.getText(), obsField.getText(), dataHoraFoto + ".jpg");
-            visitante.insert();
-            JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " cadastrador com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            if (visitante == null) {
+                this.visitante = new Visitante (nomeField.getText(), rgField.getText(), cpfField.getText(), telefoneField.getText(), emailField.getText(), enderecoField.getText(), numeroEndField.getText(), complEndField.getText(), bairroField.getText(), cidadeField.getText(), ufField.getText(), cepField.getText(), obsField.getText(), dataHoraFoto + ".jpg");
+                this.visitante.insert();
+                JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " cadastrado com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                this.visitante.update();
+                JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " atualizado com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            }
+            
             player.close();
             this.mainWindow.updateVisitantesList();
             this.setVisible(false);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar visitante:" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar visitante:" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
         } 
@@ -439,8 +471,8 @@ public class CadastroVisitante extends javax.swing.JFrame {
         bi    = new BufferedImage (foto.getWidth(null), foto.getHeight(null), BufferedImage.TYPE_INT_RGB);
         g2    = bi.createGraphics();
         g2.drawImage(foto, null, this);
-        dataHoraFoto = Long.toString(Calendar.getInstance().getTimeInMillis());
-        nomeArqFoto = "c:\\Program Files\\Portaria\\img\\" +  dataHoraFoto + ".jpg";
+        this.dataHoraFoto = Long.toString(Calendar.getInstance().getTimeInMillis());
+        this.nomeArqFoto  = "c:\\Program Files\\Portaria\\img\\" +  dataHoraFoto + ".jpg";
         
         try {
             fos = new FileOutputStream (nomeArqFoto);
@@ -558,4 +590,5 @@ public class CadastroVisitante extends javax.swing.JFrame {
     public String nomeArqFoto;
     public String dataHoraFoto;
     public Consulta mainWindow;
+    private Visitante visitante;
 }
