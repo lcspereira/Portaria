@@ -103,20 +103,21 @@ public class Visita {
     }
 
     public static List<Visita> getVisitasByVisitante (int idVisitante) throws SQLException {
-        Statement stmt       = Consulta.conn.createStatement();
+        Statement stmt = Consulta.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs         = null;
         List<Visita> visitas = new ArrayList();
         
         stmt.executeQuery("SELECT * FROM visita WHERE id_visitante = " + idVisitante);
         rs = stmt.getResultSet();
-        while (rs.next()) {
+        rs.first ();
+        do {
             visitas.add(new Visita (rs.getInt("id"), rs.getInt("id_visitante"), new Date(rs.getTimestamp("data_hora").getTime()), rs.getString("obs")));
-        }
+        } while (rs.next());
         return visitas;
     }
     
     public static List<Visita> getVisitasByData (Date dataVisitaLower, Date dataVisitaUpper) throws SQLException {
-        Statement stmt       = Consulta.conn.createStatement();
+        Statement stmt = Consulta.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         ResultSet rs         = null;
         List<Visita> visitas = new ArrayList();
         

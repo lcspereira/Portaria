@@ -24,6 +24,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
@@ -99,6 +100,8 @@ public class Consulta extends javax.swing.JFrame {
         dataBuscarDeField = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         dataBuscarAField = new javax.swing.JTextField();
+        cpfBuscaLabel = new javax.swing.JLabel();
+        cpfBuscarField = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuPrincipal = new javax.swing.JMenu();
         cadVisitanteMenuItem = new javax.swing.JMenuItem();
@@ -125,6 +128,11 @@ public class Consulta extends javax.swing.JFrame {
         });
 
         buscarButton.setText("Buscar");
+        buscarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarButtonActionPerformed(evt);
+            }
+        });
 
         visitantesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         visitantesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -266,10 +274,10 @@ public class Consulta extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dataEnderecoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(dadosVisitantePanelLayout.createSequentialGroup()
-                        .addComponent(rgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dataRgLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
+                        .addGap(54, 54, 54)
                         .addComponent(cpfLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dataCpfLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -286,10 +294,11 @@ public class Consulta extends javax.swing.JFrame {
                         .addComponent(dataNomeLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rgLabel)
+                            .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(rgLabel)
+                                .addComponent(dataRgLabel))
                             .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(cpfLabel)
-                                .addComponent(dataRgLabel)
                                 .addComponent(dataCpfLabel)))
                         .addGap(18, 18, 18)
                         .addGroup(dadosVisitantePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -337,6 +346,8 @@ public class Consulta extends javax.swing.JFrame {
 
         jLabel12.setText("à");
 
+        cpfBuscaLabel.setText("CPF: ");
+
         menuPrincipal.setText("Menu");
 
         cadVisitanteMenuItem.setText("Cadastrar visitante");
@@ -377,40 +388,49 @@ public class Consulta extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
-                            .addComponent(nomeBuscaLabel))
+                            .addComponent(nomeBuscaLabel)
+                            .addComponent(cpfBuscaLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(nomeBuscarField, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buscarButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(dataBuscarDeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel12)
-                                .addGap(18, 18, 18)
-                                .addComponent(dataBuscarAField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(cpfBuscarField, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(dataBuscarDeField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel12)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(dataBuscarAField, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                         .addComponent(dadosVisitantePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nomeBuscarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buscarButton))
-                    .addComponent(nomeBuscaLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nomeBuscaLabel)
+                        .addComponent(nomeBuscarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buscarButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cpfBuscaLabel)
+                    .addComponent(cpfBuscarField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(dataBuscarDeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -447,18 +467,14 @@ public class Consulta extends javax.swing.JFrame {
     }//GEN-LAST:event_cadVisitanteMenuItemActionPerformed
 
     private void cadVisitanteMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadVisitanteMenuItemMouseClicked
-
+        
     }//GEN-LAST:event_cadVisitanteMenuItemMouseClicked
 
     @SuppressWarnings("UseOfObsoleteCollectionType")
     private void visitantesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_visitantesListValueChanged
         DefaultTableModel dtm;
-        Vector<String> colunas = new Vector();
-        Image foto             = null;
-        Vector<Visita> visitas = new Vector ();
+        Image foto                      = null;
         
-        colunas.add("Data / Hora");
-        colunas.add("Descrição");
         try {
             // Mostra os dados em seus respectivos labels.
             visitante = new Visitante ((String) visitantesList.getSelectedValue());
@@ -475,14 +491,14 @@ public class Consulta extends javax.swing.JFrame {
             dataUfLabel.setText(visitante.getUf());
             dataObsLabel.setText(visitante.getObs());
             
-            // Popula tabela de visitas do visitante.
-            /*
-            for (Visita visita : Visita.getVisitasByVisitante(visitante.getId())) {
-                visitas.add(visita);
+            dtm = new DefaultTableModel();
+            dtm.addColumn("Data / Hora");
+            dtm.addColumn("Descriçao");
+            for (Visita v : Visita.getVisitasByVisitante(visitante.getId())) {
+                dtm.addRow(new Object[] { v.getDataHora(), v.getObs() });
             }
-            dtm = new DefaultTableModel (visitas, colunas);
             visitasTable.setModel(dtm);
-            */
+            
             // Renderiza a foto do visitante.
             foto = ImageIO.read(new File (config.getImgDir() + "\\" + visitante.getFoto()));
             fotoLabel.setIcon(new ImageIcon (foto));
@@ -506,9 +522,27 @@ public class Consulta extends javax.swing.JFrame {
     }//GEN-LAST:event_regVisitaMenuItemActionPerformed
 
     private void editarVisitanteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarVisitanteMenuItemActionPerformed
-        // TODO add your handling code here:
+        new CadastroVisitante (this, visitante).setVisible(true);
     }//GEN-LAST:event_editarVisitanteMenuItemActionPerformed
 
+    private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
+        try {
+            List<Visitante> visitantes = Visitante.getVisitantes(this.nomeBuscarField.getText(), this.cpfBuscarField.getText(), null, null);
+            Vector<Visitante> v        = new Vector ();
+            // TODO: List não pode ser convertido para Vector.
+            for (Visitante visitante: visitantes) {
+                v.add(visitante);
+            }
+            visitantesList.setListData(v);
+        } catch (SQLException ex) {
+            Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_buscarButtonActionPerformed
+     /**
+     * Refaz a lista de visitantes.
+     * @param
+     * @return 
+     */  
     public void updateVisitantesList () {
         Statement stmt = null;
         ResultSet rs;
@@ -569,6 +603,8 @@ public class Consulta extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         try {
+            // Processamento das configurações e conexão com o banco de dados.
+            
             config = new Config ("c:\\Program Files\\Portaria\\config.ini");
             Class.forName("org.postgresql.Driver");
             conn = DriverManager.getConnection("jdbc:postgresql://" + config.getDbAddress() + ":" + config.getDbPort() + "/" + config.getDbName(), config.getDbUser(), config.getDbPasswd());
@@ -595,6 +631,8 @@ public class Consulta extends javax.swing.JFrame {
     private javax.swing.JMenuItem cadVisitanteMenuItem;
     private javax.swing.JLabel cidadeLabel;
     private javax.swing.JLabel complEndLabel;
+    private javax.swing.JLabel cpfBuscaLabel;
+    private javax.swing.JTextField cpfBuscarField;
     private javax.swing.JLabel cpfLabel;
     private javax.swing.JPanel dadosVisitantePanel;
     private javax.swing.JLabel dataBairroLabel;

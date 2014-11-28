@@ -94,12 +94,12 @@ public class Visitante {
         Statement stmt = null;
         ResultSet rs   = null;
         
-        stmt = Consulta.conn.createStatement();
+        stmt = Consulta.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         rs   = null;
 
         stmt.execute("SELECT * FROM visitante WHERE nome = '" + nome + "'");
         rs                 = stmt.getResultSet();
-        rs.next();
+        rs.first ();
         this.id            = rs.getInt("id");
         this.nome          = rs.getString("nome");
         this.rg            = rs.getString("rg");
@@ -127,11 +127,12 @@ public class Visitante {
         Statement stmt = null;
         ResultSet rs   = null;
         
-        stmt = Consulta.conn.createStatement();
-        rs = null;
+        stmt = Consulta.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+        rs   = null;
 
         stmt.execute("SELECT * FROM visitante WHERE id = " + id);
         rs                 = stmt.getResultSet();
+        
         this.id            = rs.getInt("id");
         this.nome          = rs.getString("nome");
         this.rg            = rs.getString("rg");
@@ -358,7 +359,7 @@ public class Visitante {
      * @param nome
      * @return List<Visitante>
      */
-    public static List<Visitante> getVisitantes (String nome, Date dataLower, Date dataUpper) throws SQLException {
+    public static List<Visitante> getVisitantes (String nome, String cpf, Date dataLower, Date dataUpper) throws SQLException {
         Statement stmt             = null;
         ResultSet rs               = null;
         List<Visitante> visitantes = new ArrayList();
@@ -368,16 +369,26 @@ public class Visitante {
         stmt = Consulta.conn.createStatement();
         rs   = null;
         
-        if (! nome.isEmpty()) {
-            sql += " WHERE nome LIKE " + nome;
-        }
         if (dataLower != null) {
-            sql += " AND data_hora > '" + dataLower.toString() + "'";
+            sql += " INNER JOIN visita ON visitante.id = visita.id_visitante";
+            sql += " WHERE data_hora >= '" + dataLower.toString() + "'";
             if (dataUpper == null) {
                 dataUpper = Calendar.getInstance().getTime();
                 sql += " AND data_hora < '" + dataUpper.toString() + "'";
             }
+            if (! nome.isEmpty()) {
+                sql += " AND nome LIKE '" + nome + "'";
+            }
         }
+       
+        if (dataLower == null && ! nome.isEmpty()){
+            sql += " WHERE nome ILIKE '" + nome + "'";
+        }
+        
+        if (! cpf.isEmpty ()) {
+            sql += " AND cpf = '" + cpf + "'";
+        }
+        System.out.println (sql);
         
         stmt.execute(sql);
         rs = stmt.getResultSet();
@@ -396,11 +407,15 @@ public class Visitante {
         Statement stmt = null;
         String sql     = null;
         
-        if (this.nome.equals("")) {
+        if (this.nome.isEmpty()) {
             throw new Exception("Por favor, informe o nome do visitante");
-        } else if (this.rg.equals("") && this.cpf.equals("")) {
+        } else if (this.rg.isEmpty() && this.cpf.isEmpty()) {
             throw new Exception ("RG ou CPF deve ser informado");
-        } else if (this.foto.equals("") || this.foto.equals("null.jpg")) {
+        } else if (! this.rg.isEmpty() && this.rg.length() != 10) {
+            throw new Exception ("RG inválido");
+        } else if (! this.cpf.isEmpty() && this.cpf.length() != 11) {
+            throw new Exception ("CPF inválido");
+        } else if (this.foto.isEmpty() || this.foto.equals("null.jpg")) {
             throw new Exception ("Por favor, tire a foto do visitante");
         } else {
             stmt = Consulta.conn.createStatement();

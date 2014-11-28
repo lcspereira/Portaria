@@ -74,8 +74,8 @@ public class CadastroVisitante extends javax.swing.JFrame {
      */
     public CadastroVisitante(Consulta mainWindow, Visitante v) {
         this.mainWindow = mainWindow;
+        this.visitante  = v;
         initComponents();
-        this.visitante = v;
         this.nomeField.setText(v.getNome());
         this.rgField.setText(v.getRg());
         this.cpfField.setText(v.getCpf());
