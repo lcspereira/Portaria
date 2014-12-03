@@ -358,6 +358,7 @@ public class Visitante {
      *
      * @param nome
      * @return List<Visitante>
+     * @throws SQLException
      */
     public static List<Visitante> getVisitantes (String nome, String cpf, Date dataLower, Date dataUpper) throws SQLException {
         Statement stmt             = null;
@@ -401,7 +402,9 @@ public class Visitante {
     }
     
     /**
-     *
+     * Insere novo visitante no banco de dados.
+     * 
+     * @throws SQLException
      */
     public void insert () throws SQLException, Exception{
         Statement stmt = null;
@@ -432,6 +435,7 @@ public class Visitante {
             sql += "cidade, ";
             sql += "uf, ";
             sql += "cep, ";
+            sql += "obs, ";
             sql += "foto";
             sql += ") VALUES ('";
             sql += this.nome + "', '";
@@ -446,6 +450,7 @@ public class Visitante {
             sql += this.cidade + "', '";
             sql += this.uf + "', '";
             sql += this.cep + "', '";
+            sql += this.obs + "', '";
             sql += this.foto;
             sql += "')";
             stmt.execute(sql);
@@ -453,27 +458,32 @@ public class Visitante {
         }
     }
 
+    /**
+     * Atualiza visitante existente no banco de dados.
+     * 
+     * @throws SQLException
+     */
     public void update() throws SQLException {
         Statement stmt           = Consulta.conn.createStatement();
         String sql               = null;
         sql  = "UPDATE visitante ";
         sql += "    SET ";
-        sql += "nome = " + this.nome + ", ";
-        sql += "rg = " + this.rg + ", ";
-        sql += "cpf = " + this.cpf + ", ";
-        sql += "telefone = " + this.telefone + ", ";
-        sql += "email = " + this.email + ", ";
-        sql += "endereco = " + this.endereco + ", ";
-        sql += "num_endereco = " + this.numEndereco + ", ";
-        sql += "comp_endereco = " + this.complEndereco + ", ";
-        sql += "bairro = " + this.bairro + ", ";
-        sql += "cidade = " + this.cidade + ", ";
-        sql += "uf = " + this.uf + ", ";
-        sql += "cep = " + this.cep + ", ";
-        sql += "foto = " + this.foto;
-        sql += "WHERE id = " + this.id;
-        
-        stmt.executeQuery(sql);
+        sql += "nome = '" + this.nome + "', ";
+        sql += "rg = '" + this.rg + "', ";
+        sql += "cpf = '" + this.cpf + "', ";
+        sql += "telefone = '" + this.telefone + "', ";
+        sql += "email = '" + this.email + "', ";
+        sql += "endereco = '" + this.endereco + "', ";
+        sql += "num_endereco = '" + this.numEndereco + "', ";
+        sql += "compl_endereco = '" + this.complEndereco + "', ";
+        sql += "bairro = '" + this.bairro + "', ";
+        sql += "cidade = '" + this.cidade + "', ";
+        sql += "uf = '" + this.uf + "', ";
+        sql += "cep = '" + this.cep + "', ";
+        sql += "obs = '" + this.obs + "', ";
+        sql += "foto = '" + this.foto + "'";
+        sql += " WHERE id = " + this.id;
+        stmt.execute(sql);
         stmt.close();
     }
 }

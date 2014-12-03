@@ -180,6 +180,7 @@ public class Consulta extends javax.swing.JFrame {
                 "Data / Hora", "Descrição"
             }
         ));
+        visitasTable.setFocusable(false);
         jScrollPane1.setViewportView(visitasTable);
 
         fotoPanel.setPreferredSize(new java.awt.Dimension(640, 480));
@@ -482,7 +483,7 @@ public class Consulta extends javax.swing.JFrame {
     @SuppressWarnings("UseOfObsoleteCollectionType")
     private void visitantesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_visitantesListValueChanged
         DefaultTableModel dtm;
-        Image foto                      = null;
+        Image foto = null;
         
         try {
             // Mostra os dados em seus respectivos labels.
@@ -500,14 +501,17 @@ public class Consulta extends javax.swing.JFrame {
             dataUfLabel.setText(visitante.getUf());
             dataObsLabel.setText(visitante.getObs());
             
-            dtm = new DefaultTableModel();
+            dtm = new DefaultTableModel() {
+                public boolean isCellEditable (int rowIndex, int columnIndex) {
+                    return false;
+                }
+            };
             dtm.addColumn("Data / Hora");
             dtm.addColumn("Descriçao");
             for (Visita v : Visita.getVisitasByVisitante(visitante.getId())) {
                 dtm.addRow(new Object[] { v.getDataHora(), v.getObs() });
             }
             visitasTable.setModel(dtm);
-            
             // Renderiza a foto do visitante.
             foto = ImageIO.read(new File (config.getImgDir() + "\\" + visitante.getFoto()));
             fotoLabel.setIcon(new ImageIcon (foto));
@@ -531,16 +535,20 @@ public class Consulta extends javax.swing.JFrame {
     }//GEN-LAST:event_regVisitaMenuItemActionPerformed
 
     private void editarVisitanteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarVisitanteMenuItemActionPerformed
-        new CadastroVisitante (this, visitante).setVisible(true);
+       try {
+            new CadastroVisitante(this, visitante).setVisible(true);
+        } catch (NullPointerException npe) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um visitante na lista.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_editarVisitanteMenuItemActionPerformed
 
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         try {
             List<Visitante> visitantes = Visitante.getVisitantes(this.nomeBuscarField.getText(), this.cpfBuscarField.getText(), null, null);
-            Vector<Visitante> v        = new Vector ();
+            Vector<String> v        = new Vector ();
             // TODO: List não pode ser convertido para Vector.
             for (Visitante visitante: visitantes) {
-                v.add(visitante);
+                v.add(visitante.getNome());
             }
             visitantesList.setListData(v);
         } catch (SQLException ex) {

@@ -70,7 +70,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
     }
     
     /**
-     * Creates new form CadastroPessoa
+     * Creates new form CadastroVisitante
      */
     public CadastroVisitante(Consulta mainWindow, Visitante v) {
         this.mainWindow = mainWindow;
@@ -412,16 +412,30 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 this.visitante.insert();
                 JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " cadastrado com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
             } else {
+                this.visitante.setNome(this.nomeField.getText());
+                this.visitante.setRg(this.rgField.getText());
+                this.visitante.setCpf(this.cpfField.getText());
+                this.visitante.setTelefone(this.telefoneField.getText());
+                this.visitante.setEmail(this.emailField.getText());
+                this.visitante.setEndereco(this.enderecoField.getText());
+                this.visitante.setNumEndereco(this.numeroEndField.getText());
+                this.visitante.setComplEndereco(this.complEndField.getText());
+                this.visitante.setBairro(this.bairroField.getText());
+                this.visitante.setCidade(this.cidadeField.getText());
+                this.visitante.setUf(this.ufField.getText());
+                this.visitante.setCep(this.cepField.getText());
+                this.visitante.setObs(this.obsField.getText());
+                
                 this.visitante.update();
                 JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " atualizado com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
             }
-            
-            player.close();
+            try {
+                player.close();
+            } catch (NullPointerException npe) {
+                
+            }
             this.mainWindow.updateVisitantesList();
             this.setVisible(false);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar visitante:" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro ao cadastrar visitante:" + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
