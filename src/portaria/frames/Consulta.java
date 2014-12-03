@@ -107,6 +107,7 @@ public class Consulta extends javax.swing.JFrame {
         cadVisitanteMenuItem = new javax.swing.JMenuItem();
         regVisitaMenuItem = new javax.swing.JMenuItem();
         editarVisitanteMenuItem = new javax.swing.JMenuItem();
+        aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Portaria");
@@ -371,13 +372,21 @@ public class Consulta extends javax.swing.JFrame {
         });
         menuPrincipal.add(regVisitaMenuItem);
 
-        editarVisitanteMenuItem.setText("Editar visitnte");
+        editarVisitanteMenuItem.setText("Editar visitante");
         editarVisitanteMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editarVisitanteMenuItemActionPerformed(evt);
             }
         });
         menuPrincipal.add(editarVisitanteMenuItem);
+
+        aboutMenuItem.setText("Sobre...");
+        aboutMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutMenuItemActionPerformed(evt);
+            }
+        });
+        menuPrincipal.add(aboutMenuItem);
 
         jMenuBar1.add(menuPrincipal);
 
@@ -538,6 +547,10 @@ public class Consulta extends javax.swing.JFrame {
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_buscarButtonActionPerformed
+
+    private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
+        new About().setVisible(true);
+    }//GEN-LAST:event_aboutMenuItemActionPerformed
      /**
      * Refaz a lista de visitantes.
      * @param
@@ -626,6 +639,7 @@ public class Consulta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JLabel bairroLabel;
     private javax.swing.JButton buscarButton;
     private javax.swing.JMenuItem cadVisitanteMenuItem;

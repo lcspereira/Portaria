@@ -28,10 +28,18 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="editarVisitanteMenuItem">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Editar visitnte"/>
+                <Property name="text" type="java.lang.String" value="Editar visitante"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editarVisitanteMenuItemActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="aboutMenuItem">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sobre..."/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="aboutMenuItemActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

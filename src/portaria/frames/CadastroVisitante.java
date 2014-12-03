@@ -465,6 +465,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
         JPEGEncodeParam jep;
         Image fotoShow;
         
+        // Armazena a imagem da webcam em buffer na memória
         buf   = fgc.grabFrame();
         btoi  = new BufferToImage ((VideoFormat) buf.getFormat());
         foto  = btoi.createImage(buf);
@@ -472,8 +473,9 @@ public class CadastroVisitante extends javax.swing.JFrame {
         g2    = bi.createGraphics();
         g2.drawImage(foto, null, this);
         this.dataHoraFoto = Long.toString(Calendar.getInstance().getTimeInMillis());
-        this.nomeArqFoto  = "c:\\Program Files\\Portaria\\img\\" +  dataHoraFoto + ".jpg";
+        this.nomeArqFoto  = Consulta.config.getImgDir() +  dataHoraFoto + ".jpg";
         
+        // Escreve a imagem no sistema de arquivos
         try {
             fos = new FileOutputStream (nomeArqFoto);
             jie = JPEGCodec.createJPEGEncoder(fos);
