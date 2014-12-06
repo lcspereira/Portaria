@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 /**
  *
  * @author lucas
@@ -47,7 +48,7 @@ import portaria.classes.Visitante;
 public class Consulta extends javax.swing.JFrame {
     public static Connection conn;
     /**
-     * Creates new form PortariaMain
+     * Creates new form Consulta
      */
     public Consulta() {
         initComponents();
@@ -185,14 +186,14 @@ public class Consulta extends javax.swing.JFrame {
 
         fotoPanel.setPreferredSize(new java.awt.Dimension(640, 480));
 
-        fotoLabel.setText("imagem");
+        fotoLabel.setText("Imagem");
 
         javax.swing.GroupLayout fotoPanelLayout = new javax.swing.GroupLayout(fotoPanel);
         fotoPanel.setLayout(fotoPanelLayout);
         fotoPanelLayout.setHorizontalGroup(
             fotoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, fotoPanelLayout.createSequentialGroup()
-                .addContainerGap(376, Short.MAX_VALUE)
+                .addContainerGap(374, Short.MAX_VALUE)
                 .addComponent(fotoLabel)
                 .addGap(228, 228, 228))
         );
@@ -455,15 +456,27 @@ public class Consulta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void nomeBuscarFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomeBuscarFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeBuscarFieldActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         this.updateVisitantesList();
     }//GEN-LAST:event_formWindowOpened
 
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         try {
             conn.close();
@@ -472,14 +485,26 @@ public class Consulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosed
 
+    /**
+     * 
+     * @param evt 
+     */
     private void cadVisitanteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadVisitanteMenuItemActionPerformed
         new CadastroVisitante(this).setVisible(true);
     }//GEN-LAST:event_cadVisitanteMenuItemActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void cadVisitanteMenuItemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadVisitanteMenuItemMouseClicked
         
     }//GEN-LAST:event_cadVisitanteMenuItemMouseClicked
 
+    /**
+     * 
+     * @param evt 
+     */
     @SuppressWarnings("UseOfObsoleteCollectionType")
     private void visitantesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_visitantesListValueChanged
         DefaultTableModel dtm;
@@ -521,11 +546,15 @@ public class Consulta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao pesquisar visitante: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao renderizar foto do visitante: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_visitantesListValueChanged
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void regVisitaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regVisitaMenuItemActionPerformed
         try {
             new RegistroVisita(this, visitante).setVisible(true);
@@ -534,6 +563,10 @@ public class Consulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_regVisitaMenuItemActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */    
     private void editarVisitanteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarVisitanteMenuItemActionPerformed
        try {
             new CadastroVisitante(this, visitante).setVisible(true);
@@ -541,7 +574,11 @@ public class Consulta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecione um visitante na lista.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_editarVisitanteMenuItemActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         try {
             List<Visitante> visitantes = Visitante.getVisitantes(this.nomeBuscarField.getText(), this.cpfBuscarField.getText(), null, null);
@@ -556,14 +593,17 @@ public class Consulta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buscarButtonActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
     private void aboutMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutMenuItemActionPerformed
         new About().setVisible(true);
     }//GEN-LAST:event_aboutMenuItemActionPerformed
-     /**
-     * Refaz a lista de visitantes.
-     * @param
-     * @return 
-     */  
+    
+    /**
+     * 
+     */
     public void updateVisitantesList () {
         Statement stmt = null;
         ResultSet rs;

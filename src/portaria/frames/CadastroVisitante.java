@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 /**
  *
  * @author lucas
@@ -401,10 +402,18 @@ public class CadastroVisitante extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * 
+     * @param evt 
+     */
     private void numeroEndFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeroEndFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_numeroEndFieldActionPerformed
 
+    /**
+     * 
+     * @param evt 
+     */
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         try {
             if (visitante == null) {
@@ -442,16 +451,25 @@ public class CadastroVisitante extends javax.swing.JFrame {
         } 
         
     }//GEN-LAST:event_cadastrarButtonActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void bairroFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bairroFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bairroFieldActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void camButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_camButtonActionPerformed
         cdi              = CaptureDeviceManager.getDevice("vfw:Microsoft WDM Image Capture (Win32):0");
         ml               = cdi.getLocator();
         
         try {
+            // Liga a webcam
             player = Manager.createRealizedPlayer(ml);
             player.start();
             comp = player.getVisualComponent();
@@ -460,13 +478,17 @@ public class CadastroVisitante extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoPlayerException ex) {
-            Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao ligar a webcam: " + ex.getMessage() + "\nVerifique se a webcam está conectada.", "Erro:", JOptionPane.ERROR_MESSAGE);
         } catch (CannotRealizeException ex) {
             Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_camButtonActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void captureButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_captureButtonActionPerformed
         FrameGrabbingControl fgc = (FrameGrabbingControl) player.getControl("javax.media.control.FrameGrabbingControl");
         Buffer buf;
@@ -507,11 +529,19 @@ public class CadastroVisitante extends javax.swing.JFrame {
             Logger.getLogger(CadastroVisitante.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_captureButtonActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
 
     }//GEN-LAST:event_formWindowClosed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
             player.close();
@@ -519,11 +549,19 @@ public class CadastroVisitante extends javax.swing.JFrame {
         } catch (NullPointerException nullPointerException) {
         }
     }//GEN-LAST:event_formWindowClosing
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void formFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusLost
 
     }//GEN-LAST:event_formFocusLost
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowLostFocus
 
     }//GEN-LAST:event_formWindowLostFocus

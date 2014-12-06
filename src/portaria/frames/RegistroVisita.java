@@ -14,6 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 /**
  *
  * @author lucas
@@ -146,7 +147,11 @@ public class RegistroVisita extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**]
+     * 
+     * @param evt 
+     */
     private void registrarVisitaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarVisitaButtonActionPerformed
         try {
             visita.setObs(obsField.getText());
@@ -159,7 +164,11 @@ public class RegistroVisita extends javax.swing.JFrame {
             Logger.getLogger(RegistroVisita.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_registrarVisitaButtonActionPerformed
-
+    
+    /**
+     * 
+     * @param evt 
+     */
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         this.mainWindow.updateVisitantesList();
     }//GEN-LAST:event_formWindowClosing

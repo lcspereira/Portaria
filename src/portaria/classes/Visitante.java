@@ -49,7 +49,25 @@ public class Visitante {
     private String cep;
     private String obs;
     private String foto;
-                    
+    
+    /**
+     * 
+     * @param id
+     * @param nome
+     * @param rg
+     * @param cpf
+     * @param telefone
+     * @param email
+     * @param endereco
+     * @param numEndereco
+     * @param complEndereco
+     * @param bairro
+     * @param cidade
+     * @param uf
+     * @param cep
+     * @param obs
+     * @param foto 
+     */
     public Visitante(int id, String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
         this.id            = id;
         this.nome          = nome;
@@ -68,6 +86,23 @@ public class Visitante {
         this.foto          = foto;
     }
     
+    /**
+     * 
+     * @param nome
+     * @param rg
+     * @param cpf
+     * @param telefone
+     * @param email
+     * @param endereco
+     * @param numEndereco
+     * @param complEndereco
+     * @param bairro
+     * @param cidade
+     * @param uf
+     * @param cep
+     * @param obs
+     * @param foto 
+     */
     public Visitante(String nome, String rg, String cpf, String telefone, String email, String endereco, String numEndereco, String complEndereco, String bairro, String cidade, String uf, String cep, String obs, String foto) {
         this.nome          = nome;
         this.rg            = rg;
@@ -86,9 +121,9 @@ public class Visitante {
     }
     
     /**
-     *
+     * 
      * @param nome
-     * @return Visitante
+     * @throws SQLException 
      */  
     public Visitante (String nome) throws SQLException{
         Statement stmt = null;
@@ -119,9 +154,9 @@ public class Visitante {
     
     
     /**
-     *
+     * 
      * @param id
-     * @return Visitante
+     * @throws SQLException 
      */  
     public Visitante (int id) throws SQLException{
         Statement stmt = null;
@@ -353,12 +388,34 @@ public class Visitante {
         this.foto = foto;
     }
   
+    /**
+     * 
+     * @throws Exception 
+     */
+    private void validar () throws Exception {
+    if (this.nome.isEmpty()) {
+            throw new Exception("Por favor, informe o nome do visitante");
+        } else if (this.rg.isEmpty() && this.cpf.isEmpty()) {
+            throw new Exception ("RG ou CPF deve ser informado");
+        } else if (! this.rg.matches("\\d{10,}")) {
+            throw new Exception ("RG inválido");
+        } else if (! this.cpf.matches("\\d{11,}")) {
+            throw new Exception ("CPF inválido");
+        } else if (this.email.isEmpty()) {
+            throw new Exception ("E-mail inválido");
+        } else if (this.foto.isEmpty() || this.foto.equals("null.jpg")) {
+            throw new Exception ("Por favor, tire a foto do visitante");
+        }
+    }
     
     /**
-     *
+     * 
      * @param nome
-     * @return List<Visitante>
-     * @throws SQLException
+     * @param cpf
+     * @param dataLower
+     * @param dataUpper
+     * @return
+     * @throws SQLException 
      */
     public static List<Visitante> getVisitantes (String nome, String cpf, Date dataLower, Date dataUpper) throws SQLException {
         Statement stmt             = null;
@@ -402,70 +459,61 @@ public class Visitante {
     }
     
     /**
-     * Insere novo visitante no banco de dados.
      * 
      * @throws SQLException
+     * @throws Exception 
      */
     public void insert () throws SQLException, Exception{
         Statement stmt = null;
         String sql     = null;
-        
-        if (this.nome.isEmpty()) {
-            throw new Exception("Por favor, informe o nome do visitante");
-        } else if (this.rg.isEmpty() && this.cpf.isEmpty()) {
-            throw new Exception ("RG ou CPF deve ser informado");
-        } else if (! this.rg.isEmpty() && this.rg.length() != 10) {
-            throw new Exception ("RG inválido");
-        } else if (! this.cpf.isEmpty() && this.cpf.length() != 11) {
-            throw new Exception ("CPF inválido");
-        } else if (this.foto.isEmpty() || this.foto.equals("null.jpg")) {
-            throw new Exception ("Por favor, tire a foto do visitante");
-        } else {
-            stmt = Consulta.conn.createStatement();
-            sql  = "INSERT INTO visitante (";
-            sql += "nome, ";
-            sql += "rg, ";
-            sql += "cpf, ";
-            sql += "telefone, ";
-            sql += "email, ";
-            sql += "endereco, ";
-            sql += "num_endereco, ";
-            sql += "compl_endereco, ";
-            sql += "bairro, ";
-            sql += "cidade, ";
-            sql += "uf, ";
-            sql += "cep, ";
-            sql += "obs, ";
-            sql += "foto";
-            sql += ") VALUES ('";
-            sql += this.nome + "', '";
-            sql += this.rg + "', '";
-            sql += this.cpf + "', '";
-            sql += this.telefone + "', '";
-            sql += this.email + "', '";
-            sql += this.endereco + "', '";
-            sql += this.numEndereco + "', '";
-            sql += this.complEndereco + "', '";
-            sql += this.bairro + "', '";
-            sql += this.cidade + "', '";
-            sql += this.uf + "', '";
-            sql += this.cep + "', '";
-            sql += this.obs + "', '";
-            sql += this.foto;
-            sql += "')";
-            stmt.execute(sql);
-            stmt.close();
-        }
+ 
+        this.validar();
+        stmt = Consulta.conn.createStatement();
+        sql  = "INSERT INTO visitante (";
+        sql += "nome, ";
+        sql += "rg, ";
+        sql += "cpf, ";
+        sql += "telefone, ";
+        sql += "email, ";
+        sql += "endereco, ";
+        sql += "num_endereco, ";
+        sql += "compl_endereco, ";
+        sql += "bairro, ";
+        sql += "cidade, ";
+        sql += "uf, ";
+        sql += "cep, ";
+        sql += "obs, ";
+        sql += "foto";
+        sql += ") VALUES ('";
+        sql += this.nome + "', '";
+        sql += this.rg + "', '";
+        sql += this.cpf + "', '";
+        sql += this.telefone + "', '";
+        sql += this.email + "', '";
+        sql += this.endereco + "', '";
+        sql += this.numEndereco + "', '";
+        sql += this.complEndereco + "', '";
+        sql += this.bairro + "', '";
+        sql += this.cidade + "', '";
+        sql += this.uf + "', '";
+        sql += this.cep + "', '";
+        sql += this.obs + "', '";
+        sql += this.foto;
+        sql += "')";
+        stmt.execute(sql);
+        stmt.close();
     }
 
     /**
-     * Atualiza visitante existente no banco de dados.
      * 
      * @throws SQLException
+     * @throws Exception 
      */
-    public void update() throws SQLException {
+    public void update() throws SQLException, Exception {
         Statement stmt           = Consulta.conn.createStatement();
         String sql               = null;
+        
+        this.validar();
         sql  = "UPDATE visitante ";
         sql += "    SET ";
         sql += "nome = '" + this.nome + "', ";

@@ -458,7 +458,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="376" max="32767" attributes="0"/>
+                      <EmptySpace pref="374" max="32767" attributes="0"/>
                       <Component id="fotoLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
                   </Group>
@@ -477,7 +477,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="fotoLabel">
               <Properties>
-                <Property name="text" type="java.lang.String" value="imagem"/>
+                <Property name="text" type="java.lang.String" value="Imagem"/>
               </Properties>
             </Component>
           </SubComponents>
