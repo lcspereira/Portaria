@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
@@ -546,8 +547,6 @@ public class Consulta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao pesquisar visitante: " + ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            
-            Logger.getLogger(Consulta.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_visitantesListValueChanged
     
@@ -581,9 +580,21 @@ public class Consulta extends javax.swing.JFrame {
      */
     private void buscarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarButtonActionPerformed
         try {
-            List<Visitante> visitantes = Visitante.getVisitantes(this.nomeBuscarField.getText(), this.cpfBuscarField.getText(), null, null);
-            Vector<String> v        = new Vector ();
-            // TODO: List não pode ser convertido para Vector.
+            List<Visitante> visitantes = new ArrayList();
+            Vector<String> v           = new Vector ();
+            
+            if (! nomeBuscarField.getText().isEmpty()) {
+                visitantes.addAll (Visitante.getVisitantesByNome(nomeBuscarField.getText()));
+            }
+            if (! cpfBuscarField.getText().isEmpty()) {
+                visitantes.addAll (Visitante.getVisitantesByCpf(cpfBuscarField.getText()));
+            }
+            if (! dataBuscarDeField.getText().isEmpty() && dataBuscarAField.getText().isEmpty()) {
+                visitantes.addAll(Visitante.getVisitantesByDataVisita(dataBuscarDeField.getText(), Calendar.getInstance().getTime().toString()));
+            } else if (! dataBuscarDeField.getText().isEmpty() && dataBuscarAField.getText().isEmpty()) {
+                visitantes.addAll(Visitante.getVisitantesByDataVisita(dataBuscarDeField.getText(), dataBuscarAField.getText()));
+            }
+            
             for (Visitante visitante: visitantes) {
                 v.add(visitante.getNome());
             }

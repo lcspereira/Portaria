@@ -134,21 +134,24 @@ public class Visitante {
 
         stmt.execute("SELECT * FROM visitante WHERE nome = '" + nome + "'");
         rs                 = stmt.getResultSet();
-        rs.first ();
-        this.id            = rs.getInt("id");
-        this.nome          = rs.getString("nome");
-        this.rg            = rs.getString("rg");
-        this.cpf           = rs.getString("cpf");
-        this.telefone      = rs.getString("telefone");
-        this.email         = rs.getString("email");
-        this.endereco      = rs.getString("endereco");
-        this.numEndereco   = rs.getString("num_endereco");
-        this.complEndereco = rs.getString("compl_endereco");
-        this.bairro        = rs.getString("bairro");
-        this.cidade        = rs.getString("cidade");
-        this.uf            = rs.getString("uf");
-        this.cep           = rs.getString("cep");
-        this.foto          = rs.getString("foto");
+        // TODO: Verificar quantos registros retornam da consulta.
+        if (rs.first()) {
+            this.id            = rs.getInt("id");
+            this.nome          = rs.getString("nome");
+            this.rg            = rs.getString("rg");
+            this.cpf           = rs.getString("cpf");
+            this.telefone      = rs.getString("telefone");
+            this.email         = rs.getString("email");
+            this.endereco      = rs.getString("endereco");
+            this.numEndereco   = rs.getString("num_endereco");
+            this.complEndereco = rs.getString("compl_endereco");
+            this.bairro        = rs.getString("bairro");
+            this.cidade        = rs.getString("cidade");
+            this.uf            = rs.getString("uf");
+            this.cep           = rs.getString("cep");
+            this.obs           = rs.getString("obs");
+            this.foto          = rs.getString("foto");
+        }
         stmt.close();
     }
     
@@ -167,21 +170,22 @@ public class Visitante {
 
         stmt.execute("SELECT * FROM visitante WHERE id = " + id);
         rs                 = stmt.getResultSet();
-        
-        this.id            = rs.getInt("id");
-        this.nome          = rs.getString("nome");
-        this.rg            = rs.getString("rg");
-        this.cpf           = rs.getString("cpf");
-        this.telefone      = rs.getString("telefone");
-        this.email         = rs.getString("email");
-        this.endereco      = rs.getString("endereco");
-        this.numEndereco   = rs.getString("num_endereco");
-        this.complEndereco = rs.getString("compl_endereco");
-        this.bairro        = rs.getString("bairro");
-        this.cidade        = rs.getString("cidade");
-        this.uf            = rs.getString("uf");
-        this.cep           = rs.getString("cep");
-        this.foto          = rs.getString("foto");
+        if (rs.first()) {
+            this.id            = rs.getInt("id");
+            this.nome          = rs.getString("nome");
+            this.rg            = rs.getString("rg");
+            this.cpf           = rs.getString("cpf");
+            this.telefone      = rs.getString("telefone");
+            this.email         = rs.getString("email");
+            this.endereco      = rs.getString("endereco");
+            this.numEndereco   = rs.getString("num_endereco");
+            this.complEndereco = rs.getString("compl_endereco");
+            this.bairro        = rs.getString("bairro");
+            this.cidade        = rs.getString("cidade");
+            this.uf            = rs.getString("uf");
+            this.cep           = rs.getString("cep");
+            this.foto          = rs.getString("foto");
+        }
         stmt.close();
     }
     
@@ -401,8 +405,6 @@ public class Visitante {
             throw new Exception ("RG inválido");
         } else if (! this.cpf.matches("\\d{11,}")) {
             throw new Exception ("CPF inválido");
-        } else if (this.email.isEmpty()) {
-            throw new Exception ("E-mail inválido");
         } else if (this.foto.isEmpty() || this.foto.equals("null.jpg")) {
             throw new Exception ("Por favor, tire a foto do visitante");
         }
@@ -411,42 +413,73 @@ public class Visitante {
     /**
      * 
      * @param nome
+     * @return
+     * @throws SQLException 
+     */
+    public static List<Visitante> getVisitantesByNome (String nome) throws SQLException {
+        Statement stmt             = null;
+        ResultSet rs               = null;
+        List<Visitante> visitantes = new ArrayList();
+        Visitante visitante        = null;
+        String sql                 = "SELECT * FROM visitante WHERE nome ILIKE '%" + nome + "%';" ;
+       
+        stmt = Consulta.conn.createStatement();
+        rs   = null;
+        
+        stmt.execute(sql);
+        rs = stmt.getResultSet();
+        while (rs.next()) {
+            visitante = new Visitante (rs.getInt ("id"), rs.getString("nome"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"), rs.getString("endereco"), rs.getString("num_endereco"), rs.getString("compl_endereco"), rs.getString("bairro"), rs.getString("cidade"), rs.getString("uf"), rs.getString("cep"), rs.getString("obs"), rs.getString("foto"));
+            visitantes.add(visitante);
+        }
+        stmt.close();
+        return visitantes;
+    }
+    
+    /**
+     * 
      * @param cpf
+     * @return
+     * @throws SQLException 
+     */
+    public static List<Visitante> getVisitantesByCpf (String cpf) throws SQLException {
+        Statement stmt             = null;
+        ResultSet rs               = null;
+        List<Visitante> visitantes = new ArrayList();
+        Visitante visitante        = null;
+        String sql                 = "SELECT * FROM visitante WHERE cpf = '" + cpf + "';" ;
+       
+        stmt = Consulta.conn.createStatement();
+        rs   = null;
+        
+        stmt.execute(sql);
+        rs = stmt.getResultSet();
+        while (rs.next()) {
+            visitante = new Visitante (rs.getInt ("id"), rs.getString("nome"), rs.getString("rg"), rs.getString("cpf"), rs.getString("telefone"), rs.getString("email"), rs.getString("endereco"), rs.getString("num_endereco"), rs.getString("compl_endereco"), rs.getString("bairro"), rs.getString("cidade"), rs.getString("uf"), rs.getString("cep"), rs.getString("obs"), rs.getString("foto"));
+            visitantes.add(visitante);
+        }
+        stmt.close();
+        return visitantes;
+    }
+    
+    /**
+     * 
      * @param dataLower
      * @param dataUpper
      * @return
      * @throws SQLException 
      */
-    public static List<Visitante> getVisitantes (String nome, String cpf, Date dataLower, Date dataUpper) throws SQLException {
+    public static List<Visitante> getVisitantesByDataVisita (String dataLower, String dataUpper) throws SQLException {
         Statement stmt             = null;
         ResultSet rs               = null;
         List<Visitante> visitantes = new ArrayList();
         Visitante visitante        = null;
-        String sql                 = "SELECT * FROM visitante" ;
+        String sql                 = "SELECT visitante.* FROM visitante";
+        sql                       += "       INNER JOIN visita ON visitante.id = visita.id_visitante";
+        sql                       += " WHERE visita.data_hora BETWEEN '" + dataLower + "' AND '" + dataUpper + "';" ;
        
         stmt = Consulta.conn.createStatement();
         rs   = null;
-        
-        if (dataLower != null) {
-            sql += " INNER JOIN visita ON visitante.id = visita.id_visitante";
-            sql += " WHERE data_hora >= '" + dataLower.toString() + "'";
-            if (dataUpper == null) {
-                dataUpper = Calendar.getInstance().getTime();
-                sql += " AND data_hora < '" + dataUpper.toString() + "'";
-            }
-            if (! nome.isEmpty()) {
-                sql += " AND nome LIKE '" + nome + "'";
-            }
-        }
-       
-        if (dataLower == null && ! nome.isEmpty()){
-            sql += " WHERE nome ILIKE '" + nome + "'";
-        }
-        
-        if (! cpf.isEmpty ()) {
-            sql += " AND cpf = '" + cpf + "'";
-        }
-        System.out.println (sql);
         
         stmt.execute(sql);
         rs = stmt.getResultSet();

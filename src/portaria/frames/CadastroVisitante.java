@@ -89,7 +89,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
         this.cidadeField.setText(v.getCidade());
         this.ufField.setText(v.getUf());
         this.cepField.setText(v.getCep());
-        this.obsField.setText(v.getObs());
+        this.obsLabel.setText(v.getObs());
         this.dataHoraFoto = v.getFoto();
     }
 
@@ -121,9 +121,9 @@ public class CadastroVisitante extends javax.swing.JFrame {
         bairroField = new javax.swing.JTextField();
         cepLabel = new javax.swing.JLabel();
         cepField = new javax.swing.JTextField();
-        obsField = new javax.swing.JLabel();
+        obsLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        obsField = new javax.swing.JTextArea();
         fotoPanel = new javax.swing.JPanel();
         cadastrarButton = new javax.swing.JButton();
         cleanButton = new javax.swing.JButton();
@@ -260,11 +260,11 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        obsField.setText("Obs:");
+        obsLabel.setText("Obs:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        obsField.setColumns(20);
+        obsField.setRows(5);
+        jScrollPane1.setViewportView(obsField);
 
         fotoPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         fotoPanel.setPreferredSize(new java.awt.Dimension(640, 480));
@@ -329,7 +329,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(obsField, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(obsLabel, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(cadastrarButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,7 +381,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(obsField)
+                .addComponent(obsLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -417,7 +417,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
     private void cadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarButtonActionPerformed
         try {
             if (visitante == null) {
-                this.visitante = new Visitante (nomeField.getText(), rgField.getText(), cpfField.getText(), telefoneField.getText(), emailField.getText(), enderecoField.getText(), numeroEndField.getText(), complEndField.getText(), bairroField.getText(), cidadeField.getText(), ufField.getText(), cepField.getText(), obsField.getText(), dataHoraFoto + ".jpg");
+                this.visitante = new Visitante (nomeField.getText(), rgField.getText(), cpfField.getText(), telefoneField.getText(), emailField.getText(), enderecoField.getText(), numeroEndField.getText(), complEndField.getText(), bairroField.getText(), cidadeField.getText(), ufField.getText(), cepField.getText(), obsLabel.getText(), dataHoraFoto + ".jpg");
                 this.visitante.insert();
                 JOptionPane.showMessageDialog(null, "Visitante " + visitante.getNome() + " cadastrado com sucesso.", "Informação", JOptionPane.INFORMATION_MESSAGE);
             } else {
@@ -509,7 +509,7 @@ public class CadastroVisitante extends javax.swing.JFrame {
         g2    = bi.createGraphics();
         g2.drawImage(foto, null, this);
         this.dataHoraFoto = Long.toString(Calendar.getInstance().getTimeInMillis());
-        this.nomeArqFoto  = Consulta.config.getImgDir() +  dataHoraFoto + ".jpg";
+        this.nomeArqFoto  = Consulta.config.getImgDir() + "\\" +  dataHoraFoto + ".jpg";
         
         // Escreve a imagem no sistema de arquivos
         try {
@@ -625,11 +625,11 @@ public class CadastroVisitante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField nomeField;
     private javax.swing.JTextField numeroEndField;
     private javax.swing.JLabel numeroEndLabel;
-    private javax.swing.JLabel obsField;
+    private javax.swing.JTextArea obsField;
+    private javax.swing.JLabel obsLabel;
     private javax.swing.JTextField rgField;
     private javax.swing.JTextField telefoneField;
     private javax.swing.JLabel telefoneLabel;

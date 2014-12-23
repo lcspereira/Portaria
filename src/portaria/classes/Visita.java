@@ -110,9 +110,9 @@ public class Visita {
         stmt.executeQuery("SELECT * FROM visita WHERE id_visitante = " + idVisitante);
         rs = stmt.getResultSet();
         rs.first ();
-        do {
+        while (rs.next()) {
             visitas.add(new Visita (rs.getInt("id"), rs.getInt("id_visitante"), new Date(rs.getTimestamp("data_hora").getTime()), rs.getString("obs")));
-        } while (rs.next());
+        }
         return visitas;
     }
     
